@@ -47,3 +47,16 @@ function string:split(delim)
   -- be nice and hand back a table
   return parts
 end
+
+function string:rstrip()
+  return self:gsub('%s*$', '')
+end
+
+function string:lstrip()
+  return self:gsub('^%s*', '')
+end
+
+function string:strip()
+  local str = self:rstrip()
+  return str:lstrip()
+end

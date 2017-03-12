@@ -198,6 +198,27 @@ function test_split:test_question_space()
   lu.assertItemsEquals(tbl, {'one', 'two', 'three', 'four', 'five'})
 end
 
+test_rstrip = {}
+
+function test_rstrip:test()
+  local str = '  one = another  '
+  lu.assertEquals(str:rstrip(), '  one = another')
+end
+
+test_lstrip = {}
+
+function test_lstrip:test()
+  local str = '  one = another  '
+  lu.assertEquals(str:lstrip(), 'one = another  ')
+end
+
+test_strip = {}
+
+function test_strip:test()
+  local str = '  one = another  '
+  lu.assertEquals(str:strip(), 'one = another')
+end
+
 local runner = lu.LuaUnit.new()
 runner:setOutputType("tap")
 os.exit( runner:runSuite() )
