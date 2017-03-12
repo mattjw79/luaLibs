@@ -66,7 +66,3 @@ function test_ipv4Address:test_32bit()
   lu.assertEquals(ip.maskBits, 32)
   lu.assertEquals(ip:networkAddress(), '10.1.250.173')
 end
-
-local runner = lu.LuaUnit.new()
-runner:setOutputType("tap")
-os.exit( runner:runSuite() )

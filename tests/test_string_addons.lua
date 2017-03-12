@@ -218,7 +218,3 @@ function test_strip:test()
   local str = '  one = another  '
   lu.assertEquals(str:strip(), 'one = another')
 end
-
-local runner = lu.LuaUnit.new()
-runner:setOutputType("tap")
-os.exit( runner:runSuite() )
