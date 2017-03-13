@@ -66,3 +66,13 @@ function test_ipv4address:test_32bit()
   lu.assertEquals(ip.maskBits, 32)
   lu.assertEquals(ip:networkAddress(), '10.1.250.173')
 end
+
+function test_ipv4address:test_insubnet_true()
+  local ip = ipv4address:new('10.1.250.173/32')
+  lu.assertTrue(ip:insubnet('10.1.0.0/16'))
+end
+
+function test_ipv4address:test_insubnet_false()
+  local ip = ipv4address:new('10.1.250.173/32')
+  lu.assertFalse(ip:insubnet('10.1.251.0/24'))
+end

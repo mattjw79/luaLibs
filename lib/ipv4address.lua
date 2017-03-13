@@ -56,6 +56,27 @@ function ipv4address:networkAddress()
   return table.concat(octets, '.')
 end
 
+function ipv4address:insubnet(addr)
+  if type(addr) ~= 'string' and type(addr) ~= 'ipv4address' then
+    error('Passed in item must be a CIDR string or ipv4address object')
+  end
+
+  if type(addr) == 'string' then
+    if addr:find('%/') == nil then
+      error('Passed in item is not a valid CIDR string')
+    end
+    addr = ipv4address:new(addr)
+  end
+
+  local mask = addr:binaryNetworkAddress()
+  for b=1, #mask do
+    if mask[b] == 1 and self.binaryAddress[b] ~= mask[b] then
+      return false
+    end
+  end
+  return true
+end
+
 function ipv4address:__tostring()
   return string.format('%s: %s/%s', self.__type, self.address, self.maskBits)
 end
