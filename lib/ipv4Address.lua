@@ -3,7 +3,7 @@ require 'lib.string_addons'
 local ipAddress = {}
 
 function ipAddress:new(addr)
-  local obj = {}
+  local obj = { maskBits = 32 }
 
   if type(addr) ~= 'string' then
     error('Delimiter must be a string')
