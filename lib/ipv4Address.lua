@@ -1,8 +1,8 @@
 require 'lib.string_addons'
 
-local ipAddress = {}
+local ipv4Address = {}
 
-function ipAddress:new(addr)
+function ipv4Address:new(addr)
   local obj = { maskBits = 32 }
 
   if type(addr) ~= 'string' then
@@ -29,7 +29,7 @@ function ipAddress:new(addr)
   return obj
 end
 
-function ipAddress:binaryNetworkAddress()
+function ipv4Address:binaryNetworkAddress()
   local networkAddress = {}
   for b=1, 32 do
     if b > self.maskBits then
@@ -41,7 +41,7 @@ function ipAddress:binaryNetworkAddress()
   return networkAddress
 end
 
-function ipAddress:networkAddress()
+function ipv4Address:networkAddress()
   local networkAddress = self:binaryNetworkAddress()
 
   local octets = { 0, 0, 0, 0 }
@@ -56,4 +56,4 @@ function ipAddress:networkAddress()
   return table.concat(octets, '.')
 end
 
-return ipAddress
+return ipv4Address
