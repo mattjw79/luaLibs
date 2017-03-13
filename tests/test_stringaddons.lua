@@ -1,6 +1,6 @@
 local lu = require 'luaunit'
 
-require 'lib.string_addons'
+require 'lib.stringaddons'
 
 test_split = {}
 

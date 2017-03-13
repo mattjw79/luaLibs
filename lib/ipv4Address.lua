@@ -1,9 +1,9 @@
-require 'lib.string_addons'
+require 'lib.stringaddons'
 
-local ipv4Address = {}
+local ipv4address = {}
 
-function ipv4Address:new(addr)
-  local obj = { maskBits = 32, __type = 'ipv4Address' }
+function ipv4address:new(addr)
+  local obj = { maskBits = 32, __type = 'ipv4address' }
 
   if type(addr) ~= 'string' then
     error('Delimiter must be a string')
@@ -29,7 +29,7 @@ function ipv4Address:new(addr)
   return obj
 end
 
-function ipv4Address:binaryNetworkAddress()
+function ipv4address:binaryNetworkAddress()
   local networkAddress = {}
   for b=1, 32 do
     if b > self.maskBits then
@@ -41,7 +41,7 @@ function ipv4Address:binaryNetworkAddress()
   return networkAddress
 end
 
-function ipv4Address:networkAddress()
+function ipv4address:networkAddress()
   local networkAddress = self:binaryNetworkAddress()
 
   local octets = { 0, 0, 0, 0 }
@@ -56,12 +56,8 @@ function ipv4Address:networkAddress()
   return table.concat(octets, '.')
 end
 
-function ipv4Address:__tostring()
-  return string.format('%s: %s/%s', self:type(), self.address, self.maskBits)
+function ipv4address:__tostring()
+  return string.format('%s: %s/%s', self.__type, self.address, self.maskBits)
 end
 
-function ipv4Address:type()
-  return self.__type
-end
-
-return ipv4Address
+return ipv4address

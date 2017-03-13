@@ -4,7 +4,7 @@ Additions to the string class
 
 -- the order of the magic characters matters when replacing
 -- percent should always be first
-local magic_characters = { '%', '(', ')', '.', '-', '*', '?', '[', '^', '$' }
+local magicCharacters = { '%', '(', ')', '.', '-', '*', '?', '[', '^', '$' }
 
 function string:split(delim)
   if type(delim) ~= 'string' then
@@ -16,7 +16,7 @@ function string:split(delim)
 
   -- find all the magic characters we need to replace
   local found_mc = {}
-  for _, mc in pairs(magic_characters) do
+  for _, mc in pairs(magicCharacters) do
     local search = '%' .. mc
     if delim:find(search) then
       -- replace the magic character with an escaped character
