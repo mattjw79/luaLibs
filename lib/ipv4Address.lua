@@ -3,7 +3,7 @@ require 'lib.string_addons'
 local ipv4Address = {}
 
 function ipv4Address:new(addr)
-  local obj = { maskBits = 32 }
+  local obj = { maskBits = 32, __type = 'ipv4Address' }
 
   if type(addr) ~= 'string' then
     error('Delimiter must be a string')
@@ -54,6 +54,14 @@ function ipv4Address:networkAddress()
   end
 
   return table.concat(octets, '.')
+end
+
+function ipv4Address:__tostring()
+  return string.format('%s: %s/%s', self:type(), self.address, self.maskBits)
+end
+
+function ipv4Address:type()
+  return self.__type
 end
 
 return ipv4Address
