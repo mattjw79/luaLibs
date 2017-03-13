@@ -3,11 +3,11 @@ require 'lib.stringaddons'
 local ipv4address = {}
 
 function ipv4address:new(addr)
-  local obj = { maskBits = 32, __type = 'ipv4address' }
-
   if type(addr) ~= 'string' then
-    error('Delimiter must be a string')
+    error('Passed in item must be a string')
   end
+
+  local obj = { maskBits = 32, __type = 'ipv4address' }
 
   local parts = addr:split('/')
   obj.address = parts[1]

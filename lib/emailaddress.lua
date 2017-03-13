@@ -3,6 +3,10 @@ require 'lib.stringaddons'
 local emailaddress = {}
 
 function emailaddress:new(addr)
+  if type(addr) ~= 'string' then
+    error('Passed in item must be a string')
+  end
+
   local obj = {
     __type = 'emailaddress',
     localpart = '',
