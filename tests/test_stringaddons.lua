@@ -218,3 +218,57 @@ function test_strip:test()
   local str = '  one = another  '
   lu.assertEquals(str:strip(), 'one = another')
 end
+
+test_startswith = {}
+
+function test_startswith:test_normal()
+  local str = 'this is a test and only a test'
+  lu.assertTrue(str:startswith('this is a'))
+  lu.assertFalse(str:startswith('this is not a'))
+end
+
+function test_startswith:test_quoted()
+  local str = '"this is" a test and only a test'
+  lu.assertTrue(str:startswith('"this is" a'))
+  lu.assertFalse(str:startswith('"this is not" a'))
+end
+
+test_endswith = {}
+
+function test_endswith:test_normal()
+  local str = 'this is a test and only a test'
+  lu.assertTrue(str:endswith('only a test'))
+  lu.assertFalse(str:endswith('this is not a'))
+end
+
+function test_endswith:test_quoted()
+  local str = 'this is a test and only "a" test'
+  lu.assertTrue(str:endswith('only "a" test'))
+  lu.assertFalse(str:endswith('"this is not" a'))
+end
+
+test_contains = {}
+
+function test_contains:test_normal()
+  local str = 'this is a test and only a test'
+  lu.assertTrue(str:contains('test and'))
+  lu.assertFalse(str:contains('one test'))
+end
+
+function test_contains:test_quoted()
+  local str = 'this is a test and only "a" test'
+  lu.assertTrue(str:contains('only "a"'))
+  lu.assertFalse(str:contains('only a'))
+end
+
+function test_contains:test_dot1()
+  local str = 'this is a test . and only "a" test'
+  lu.assertTrue(str:contains('test . and'))
+  lu.assertFalse(str:contains('test a and'))
+end
+
+function test_contains:test_dot2()
+  local str = 'this is a test a and only "a" test'
+  lu.assertTrue(str:contains('test a and'))
+  lu.assertFalse(str:contains('test . and'))
+end

@@ -2,9 +2,24 @@
 Additions to the string class
 --]]
 
--- the order of the magic characters matters when replacing
--- percent should always be first
-local magicCharacters = { '%', '(', ')', '.', '-', '*', '?', '[', '^', '$' }
+function escapeMagicCharacters(str)
+  local magicCharacters = { '%', '(', ')', '.', '-', '*', '?', '[', '^', '$' }
+
+  -- find all the magic characters we need to replace
+  local found_mc = {}
+  for _, mc in pairs(magicCharacters) do
+    local search = '%' .. mc
+    if str:find(search) then
+      -- replace the magic character with an escaped character
+      local replace = '%%' .. mc
+      if mc == '%' then
+        replace = '%' .. replace
+      end
+      str = str:gsub(search, replace)
+    end
+  end
+  return str
+end
 
 function string:split(delim)
   if type(delim) ~= 'string' then
@@ -14,19 +29,7 @@ function string:split(delim)
   -- store the original length in case it's a magic character
   local delimLen = delim:len()
 
-  -- find all the magic characters we need to replace
-  local found_mc = {}
-  for _, mc in pairs(magicCharacters) do
-    local search = '%' .. mc
-    if delim:find(search) then
-      -- replace the magic character with an escaped character
-      local replace = '%%' .. mc
-      if mc == '%' then
-        replace = '%' .. replace
-      end
-      delim = delim:gsub(search, replace)
-    end
-  end
+  delim = escapeMagicCharacters(delim)
 
   local parts = {}
   local start = 1
@@ -59,4 +62,28 @@ end
 function string:strip()
   local str = self:rstrip()
   return str:lstrip()
+end
+
+function string:startswith(str)
+  str = escapeMagicCharacters(str)
+  if self:match('^' .. str) then
+    return true
+  end
+  return false
+end
+
+function string:endswith(str)
+  str = escapeMagicCharacters(str)
+  if self:match(str .. '$') then
+    return true
+  end
+  return false
+end
+
+function string:contains(str)
+  str = escapeMagicCharacters(str)
+  if self:match(str) then
+    return true
+  end
+  return false
 end
